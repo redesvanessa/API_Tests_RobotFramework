@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.8.3rc1 on win32)" generated="20200626 21:07:18.441" rpa="false">
+<suite id="s1" name="TestCaseAPILojinha" source="C:\Projetos\SuiteTestesAPIdaLojinha\TestCaseAPILojinha.robot">
+<kw name="Conectar a minha API" library="ResourceAPI" type="setup">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>APILojinha</arg>
+<arg>${URL_API}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:18.568" level="INFO">Creating Session using : alias=APILojinha, url=http://165.227.93.41/lojinha, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200626 21:07:18.568" endtime="20200626 21:07:18.569"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:18.567" endtime="20200626 21:07:18.569"></status>
+</kw>
+<test id="s1-t1" name="Conferir lista de Produtos (GET)">
+<kw name="Fazer Login na API" library="ResourceAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>content-type=application/json</arg>
+</arguments>
+<assign>
+<var>${HEADERS}</var>
+</assign>
+<msg timestamp="20200626 21:07:18.571" level="INFO">${HEADERS} = {'content-type': 'application/json'}</msg>
+<status status="PASS" starttime="20200626 21:07:18.571" endtime="20200626 21:07:18.571"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>APILojinha</arg>
+<arg>uri=/login</arg>
+<arg>data={"usuariologin": "vanessa.redes","usuariosenha": "123456"}</arg>
+<arg>headers=${HEADERS}</arg>
+</arguments>
+<assign>
+<var>${RESPOSTA}</var>
+</assign>
+<msg timestamp="20200626 21:07:19.044" level="INFO">POST Request : url=http://165.227.93.41/lojinha/login 
+ path_url=/lojinha/login 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'Content-Length': '58'} 
+ body=b'{"usuariologin": "vanessa.redes","usuariosenha": "123456"}' 
+ </msg>
+<msg timestamp="20200626 21:07:19.044" level="INFO">POST Response : url=http://165.227.93.41/lojinha/login 
+ status=200, reason=OK 
+ body={"data":{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvaWQiOiIxMTYyIiwidXN1YXJpb2xvZ2luIjoidmFuZXNzYS5yZWRlcyIsInVzdWFyaW9ub21lIjoiVmFuZXNzYSBSZWRlcyAifQ.bVE4MI2J53AJ_gZ9dne-YI-mHjNg-RrFShVd_mKELv0"},"message":"Sucesso ao realizar o login","error":""} 
+ </msg>
+<msg timestamp="20200626 21:07:19.044" level="INFO">${RESPOSTA} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200626 21:07:18.571" endtime="20200626 21:07:19.044"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${RESPOSTA.text}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.045" level="INFO">{"data":{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvaWQiOiIxMTYyIiwidXN1YXJpb2xvZ2luIjoidmFuZXNzYS5yZWRlcyIsInVzdWFyaW9ub21lIjoiVmFuZXNzYSBSZWRlcyAifQ.bVE4MI2J53AJ_gZ9dne-YI-mHjNg-RrFShVd_mKELv0"},"message":"Sucesso ao realizar o login","error":""}</msg>
+<status status="PASS" starttime="20200626 21:07:19.044" endtime="20200626 21:07:19.045"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${RESPOSTA}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.045" level="INFO">${RESPOSTA} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200626 21:07:19.045" endtime="20200626 21:07:19.045"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${RESPOSTA.json()["data"]}</arg>
+<arg>token</arg>
+</arguments>
+<assign>
+<var>${TOKEN}</var>
+</assign>
+<msg timestamp="20200626 21:07:19.046" level="INFO">${TOKEN} = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvaWQiOiIxMTYyIiwidXN1YXJpb2xvZ2luIjoidmFuZXNzYS5yZWRlcyIsInVzdWFyaW9ub21lIjoiVmFuZXNzYSBSZWRlcyAifQ.bVE4MI2J53AJ_gZ9dne-YI-mHjNg-RrFShVd_mKELv0</msg>
+<status status="PASS" starttime="20200626 21:07:19.045" endtime="20200626 21:07:19.046"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${TOKEN}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.046" level="INFO">${TOKEN} = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvaWQiOiIxMTYyIiwidXN1YXJpb2xvZ2luIjoidmFuZXNzYS5yZWRlcyIsInVzdWFyaW9ub21lIjoiVmFuZXNzYSBSZWRlcyAifQ.bVE4MI2J53AJ_gZ9dne-YI-mHjNg-RrFShVd_mKELv0</msg>
+<status status="PASS" starttime="20200626 21:07:19.046" endtime="20200626 21:07:19.046"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:18.570" endtime="20200626 21:07:19.046"></status>
+</kw>
+<kw name="Buscar lista de Produtos" library="ResourceAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>token=${TOKEN}</arg>
+</arguments>
+<assign>
+<var>${HEADERS}</var>
+</assign>
+<msg timestamp="20200626 21:07:19.048" level="INFO">${HEADERS} = {'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvaWQiOiIxMTYyIiwidXN1YXJpb2xvZ2luIjoidmFuZXNzYS5yZWRlcyIsInVzdWFyaW9ub21lIjoiVmFuZXNzYSBSZWRlcyAifQ.bVE4MI2J53AJ_gZ9dne-YI-mHjNg-RrFShVd_mKEL...</msg>
+<status status="PASS" starttime="20200626 21:07:19.048" endtime="20200626 21:07:19.048"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>APILojinha</arg>
+<arg>uri=/produto</arg>
+<arg>headers=${HEADERS}</arg>
+</arguments>
+<assign>
+<var>${RESPOSTA_GET}</var>
+</assign>
+<msg timestamp="20200626 21:07:19.278" level="INFO">GET Request : url=http://165.227.93.41/lojinha/produto 
+ path_url=/lojinha/produto 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvaWQiOiIxMTYyIiwidXN1YXJpb2xvZ2luIjoidmFuZXNzYS5yZWRlcyIsInVzdWFyaW9ub21lIjoiVmFuZXNzYSBSZWRlcyAifQ.bVE4MI2J53AJ_gZ9dne-YI-mHjNg-RrFShVd_mKELv0'} 
+ body=None 
+ </msg>
+<msg timestamp="20200626 21:07:19.278" level="INFO">GET Response : url=http://165.227.93.41/lojinha/produto 
+ status=200, reason=OK 
+ body={"data":[{"produtoid":6653,"produtonome":"ps1","produtovalor":50,"produtocores":["preto"],"componentes":[{"componenteid":1593,"componentenome":"Controle","componentequantidade":1}]},{"produtoid":6654,"produtonome":"xbox","produtovalor":50,"produtocores":["preto"],"componentes":[{"componenteid":1594,"componentenome":"Controle","componentequantidade":1}]},{"produtoid":6655,"produtonome":"nintendo wii","produtovalor":50,"produtocores":["preto"],"componentes":[{"componenteid":1595,"componentenome":"Controle","componentequantidade":1}]},{"produtoid":6661,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1596,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6662,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1597,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6663,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1598,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6664,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1599,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6665,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1600,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6666,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1601,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6667,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1602,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6668,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1603,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6669,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1604,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6670,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1605,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6671,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1606,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6672,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1607,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6673,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1608,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6674,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1609,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6675,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1610,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6676,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":1611,"componentenome":"Framework","componentequantidade":10}]},{"produtoid":6677,"produtonome":"nintendo wii3","produtovalor":30,"produtocores":["preto-escuro"],"componentes":[{"componenteid":1612,"componentenome":"Controle","componentequantidade":1}]},{"produtoid":6678,"produtonome":"produto1","produtovalor":30,"produtocores":["preto-escuro"],"componentes":[{"componenteid":1613,"componentenome":"Controle","componentequantidade":1}]},{"produtoid":6679,"produtonome":"produto2","produtovalor":30,"produtocores":["preto-escuro"],"componentes":[{"componenteid":1614,"componentenome":"Controle","componentequantidade":1}]},{"produtoid":6680,"produtonome":"produto3","produtovalor":30,"produtocores":["preto-escuro"],"componentes":[{"componenteid":1615,"componentenome":"Controle","componentequantidade":1}]},{"produtoid":6681,"produtonome":"produto4","produtovalor":30,"produtocores":["preto-escuro"],"componentes":[{"componenteid":1616,"componentenome":"Controle","componentequantidade":1}]},{"produtoid":6682,"produtonome":"produto5","produtovalor":30,"produtocores":["preto-escuro"],"componentes":[{"componenteid":1617,"componentenome":"Controle","componentequantidade":1}]},{"produtoid":6683,"produtonome":"produto6","produtovalor":30,"produtocores":["preto-escuro"],"componentes":[{"componenteid":1618,"componentenome":"Controle","componentequantidade":1}]},{"produtoid":7243,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":2201,"componentenome":"Framework","componentequantidade":10}]}],"message":"Listagem de produtos realizada com sucesso","error":""} 
+ </msg>
+<msg timestamp="20200626 21:07:19.280" level="INFO">${RESPOSTA_GET} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200626 21:07:19.048" endtime="20200626 21:07:19.280"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${RESPOSTA_GET.json()}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.282" level="INFO">{'data': [{'produtoid': 6653, 'produtonome': 'ps1', 'produtovalor': 50, 'produtocores': ['preto'], 'componentes': [{'componenteid': 1593, 'componentenome': 'Controle', 'componentequantidade': 1}]}, {'produtoid': 6654, 'produtonome': 'xbox', 'produtovalor': 50, 'produtocores': ['preto'], 'componentes': [{'componenteid': 1594, 'componentenome': 'Controle', 'componentequantidade': 1}]}, {'produtoid': 6655, 'produtonome': 'nintendo wii', 'produtovalor': 50, 'produtocores': ['preto'], 'componentes': [{'componenteid': 1595, 'componentenome': 'Controle', 'componentequantidade': 1}]}, {'produtoid': 6661, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1596, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6662, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1597, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6663, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1598, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6664, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1599, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6665, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1600, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6666, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1601, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6667, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1602, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6668, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1603, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6669, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1604, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6670, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1605, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6671, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1606, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6672, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1607, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6673, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1608, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6674, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1609, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6675, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1610, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6676, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 1611, 'componentenome': 'Framework', 'componentequantidade': 10}]}, {'produtoid': 6677, 'produtonome': 'nintendo wii3', 'produtovalor': 30, 'produtocores': ['preto-escuro'], 'componentes': [{'componenteid': 1612, 'componentenome': 'Controle', 'componentequantidade': 1}]}, {'produtoid': 6678, 'produtonome': 'produto1', 'produtovalor': 30, 'produtocores': ['preto-escuro'], 'componentes': [{'componenteid': 1613, 'componentenome': 'Controle', 'componentequantidade': 1}]}, {'produtoid': 6679, 'produtonome': 'produto2', 'produtovalor': 30, 'produtocores': ['preto-escuro'], 'componentes': [{'componenteid': 1614, 'componentenome': 'Controle', 'componentequantidade': 1}]}, {'produtoid': 6680, 'produtonome': 'produto3', 'produtovalor': 30, 'produtocores': ['preto-escuro'], 'componentes': [{'componenteid': 1615, 'componentenome': 'Controle', 'componentequantidade': 1}]}, {'produtoid': 6681, 'produtonome': 'produto4', 'produtovalor': 30, 'produtocores': ['preto-escuro'], 'componentes': [{'componenteid': 1616, 'componentenome': 'Controle', 'componentequantidade': 1}]}, {'produtoid': 6682, 'produtonome': 'produto5', 'produtovalor': 30, 'produtocores': ['preto-escuro'], 'componentes': [{'componenteid': 1617, 'componentenome': 'Controle', 'componentequantidade': 1}]}, {'produtoid': 6683, 'produtonome': 'produto6', 'produtovalor': 30, 'produtocores': ['preto-escuro'], 'componentes': [{'componenteid': 1618, 'componentenome': 'Controle', 'componentequantidade': 1}]}, {'produtoid': 7243, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 2201, 'componentenome': 'Framework', 'componentequantidade': 10}]}], 'message': 'Listagem de produtos realizada com sucesso', 'error': ''}</msg>
+<status status="PASS" starttime="20200626 21:07:19.281" endtime="20200626 21:07:19.283"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${RESPOSTA_GET}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.284" level="INFO">${RESPOSTA_GET} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200626 21:07:19.283" endtime="20200626 21:07:19.285"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:19.048" endtime="20200626 21:07:19.285"></status>
+</kw>
+<kw name="Conferir status code" library="ResourceAPI">
+<arguments>
+<arg>200</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${RESPOSTA_GET.status_code}</arg>
+<arg>${STATUSCODE_DESEJADO}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.289" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20200626 21:07:19.288" endtime="20200626 21:07:19.290"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${RESPOSTA_GET.status_code}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.291" level="INFO">200</msg>
+<status status="PASS" starttime="20200626 21:07:19.290" endtime="20200626 21:07:19.291"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:19.287" endtime="20200626 21:07:19.292"></status>
+</kw>
+<kw name="Conferir mensagem GET &quot;Listagem de produtos realizada com sucesso&quot;" library="ResourceAPI">
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${RESPOSTA_GET.json()["message"]}</arg>
+<arg>${MENSAGEM}</arg>
+</arguments>
+<status status="PASS" starttime="20200626 21:07:19.295" endtime="20200626 21:07:19.297"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${RESPOSTA_GET.json()["message"]}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.299" level="INFO">Listagem de produtos realizada com sucesso</msg>
+<status status="PASS" starttime="20200626 21:07:19.297" endtime="20200626 21:07:19.299"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:19.294" endtime="20200626 21:07:19.300"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:18.569" endtime="20200626 21:07:19.302" critical="yes"></status>
+</test>
+<test id="s1-t2" name="Cadastrar novo Produto (POST)">
+<kw name="Cadastrar novo Produto" library="ResourceAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>content-type=application/json</arg>
+<arg>token=${TOKEN}</arg>
+</arguments>
+<assign>
+<var>${HEADERS}</var>
+</assign>
+<msg timestamp="20200626 21:07:19.313" level="INFO">${HEADERS} = {'content-type': 'application/json', 'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvaWQiOiIxMTYyIiwidXN1YXJpb2xvZ2luIjoidmFuZXNzYS5yZWRlcyIsInVzdWFyaW9ub21lIjoiVmFuZXNzYSBSZWRlcyAifQ.bVE4M...</msg>
+<status status="PASS" starttime="20200626 21:07:19.311" endtime="20200626 21:07:19.313"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>APILojinha</arg>
+<arg>uri=/produto</arg>
+<arg>data= {"produtonome": "robot1", "produtovalor": 10.00, "produtocores": [ "laranja" ], "componentes": [{"componentenome": "Framework", "componentequantidade": 10}]}</arg>
+<arg>headers=${HEADERS}</arg>
+</arguments>
+<assign>
+<var>${RESPOSTA_POST}</var>
+</assign>
+<msg timestamp="20200626 21:07:19.544" level="INFO">POST Request : url=http://165.227.93.41/lojinha/produto 
+ path_url=/lojinha/produto 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvaWQiOiIxMTYyIiwidXN1YXJpb2xvZ2luIjoidmFuZXNzYS5yZWRlcyIsInVzdWFyaW9ub21lIjoiVmFuZXNzYSBSZWRlcyAifQ.bVE4MI2J53AJ_gZ9dne-YI-mHjNg-RrFShVd_mKELv0', 'Content-Length': '158'} 
+ body=b' {"produtonome": "robot1", "produtovalor": 10.00, "produtocores": [ "laranja" ], "componentes": [{"componentenome": "Framework", "componentequantidade": 10}]}' 
+ </msg>
+<msg timestamp="20200626 21:07:19.544" level="INFO">POST Response : url=http://165.227.93.41/lojinha/produto 
+ status=201, reason=Created 
+ body={"data":{"produtoid":7244,"produtonome":"robot1","produtovalor":10,"produtocores":["laranja"],"componentes":[{"componenteid":2202,"componentenome":"Framework","componentequantidade":10}]},"message":"Produto adicionado com sucesso","error":""} 
+ </msg>
+<msg timestamp="20200626 21:07:19.545" level="INFO">${RESPOSTA_POST} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20200626 21:07:19.313" endtime="20200626 21:07:19.545"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${RESPOSTA_POST.json()}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.548" level="INFO">{'data': {'produtoid': 7244, 'produtonome': 'robot1', 'produtovalor': 10, 'produtocores': ['laranja'], 'componentes': [{'componenteid': 2202, 'componentenome': 'Framework', 'componentequantidade': 10}]}, 'message': 'Produto adicionado com sucesso', 'error': ''}</msg>
+<status status="PASS" starttime="20200626 21:07:19.546" endtime="20200626 21:07:19.548"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${RESPOSTA_POST}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.549" level="INFO">${RESPOSTA_POST} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20200626 21:07:19.549" endtime="20200626 21:07:19.550"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:19.310" endtime="20200626 21:07:19.550"></status>
+</kw>
+<kw name="Conferir mensagem POST &quot;Produto adicionado com sucesso&quot;" library="ResourceAPI">
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${RESPOSTA_POST.json()["message"]}</arg>
+<arg>${MENSAGEM}</arg>
+</arguments>
+<status status="PASS" starttime="20200626 21:07:19.552" endtime="20200626 21:07:19.553"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${RESPOSTA_POST.json()["message"]}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.554" level="INFO">Produto adicionado com sucesso</msg>
+<status status="PASS" starttime="20200626 21:07:19.554" endtime="20200626 21:07:19.554"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:19.551" endtime="20200626 21:07:19.555"></status>
+</kw>
+<kw name="Conferir se retorna todos os dados cadastrados para o novo produto" library="ResourceAPI">
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${PRODUTO_ESPERADO}</arg>
+</arguments>
+<assign>
+<var>${RESPOSTA_POST.json()}</var>
+</assign>
+<msg timestamp="20200626 21:07:19.557" level="INFO">To JSON using : content={"produtonome": "robot1", "produtovalor": 10.00, "produtocores": [ "laranja" ], "componentes": [{"componentenome": "Framework", "componentequantidade": 10}]} </msg>
+<msg timestamp="20200626 21:07:19.557" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200626 21:07:19.557" level="INFO">${RESPOSTA_POST.json()} = {'produtonome': 'robot1', 'produtovalor': 10.0, 'produtocores': ['laranja'], 'componentes': [{'componentenome': 'Framework', 'componentequantidade': 10}]}</msg>
+<status status="PASS" starttime="20200626 21:07:19.556" endtime="20200626 21:07:19.557"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:19.556" endtime="20200626 21:07:19.557"></status>
+</kw>
+<kw name="Conferir status code POST" library="ResourceAPI">
+<arguments>
+<arg>201</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${RESPOSTA_POST.status_code}</arg>
+<arg>${STATUSCODE_DESEJADO}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.559" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20200626 21:07:19.559" endtime="20200626 21:07:19.560"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${RESPOSTA_POST.status_code}</arg>
+</arguments>
+<msg timestamp="20200626 21:07:19.560" level="INFO">201</msg>
+<status status="PASS" starttime="20200626 21:07:19.560" endtime="20200626 21:07:19.560"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:19.558" endtime="20200626 21:07:19.560"></status>
+</kw>
+<status status="PASS" starttime="20200626 21:07:19.307" endtime="20200626 21:07:19.561" critical="yes"></status>
+</test>
+<doc>Documentação da API: http://165.227.93.41/lojinha-arquivos/Swagger.pdf</doc>
+<status status="PASS" starttime="20200626 21:07:18.442" endtime="20200626 21:07:19.562"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0">Critical Tests</stat>
+<stat pass="2" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="0" id="s1" name="TestCaseAPILojinha">TestCaseAPILojinha</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
